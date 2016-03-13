@@ -1,0 +1,42 @@
+<template name="signIn">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form id="sign-in-form" role="form">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2>Sign In</h2>
+                        </div>
+                        <div class="panel-body">
+                            {{#if hasErrors}}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong>Error!</strong> {{ errors }}
+                                </div>
+                            {{/if}}
+                            {{#if success}}
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong>Success!</strong> {{ success }}
+                                </div>
+                            {{/if}}
+                            <div class="form-group {{#if usernameHasError}} has-error {{/if}}">
+                                <input type="username" class="form-control " id="sign-in-username" placeholder="Username"/>
+                            </div>
+                            <div class="form-group {{#if passwordHasError}} has-error {{/if}}">
+                                <input type="password" class="form-control" id="sign-in-password" placeholder="Password"/>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button type="submit" class="btn btn-raised btn-sm btn-primary">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>

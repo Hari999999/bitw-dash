@@ -1,0 +1,19 @@
+<head>
+    <title>Dash</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+</head>
+
+<template name="layout">
+    <div class="container-fluid">
+        <section>
+            {{> toolbar}}
+            <div class="container-fluid">
+                {{> sidebar}}
+                <section id="main-content" class="col-md-10 col-md-offset-2">
+                    {{> yield}}
+                </section>
+            </div>
+        </section>
+    </div>
+</template>

@@ -1,0 +1,15 @@
+<template name="viewNotification">
+    {{#with notification}}
+        <div class="panel">
+            <div class="panel-heading">
+                <h4>{{title}}</h4>
+            </div>
+            <div class="panel-body">
+                <p>{{{ detail }}}</p>
+                <p class="sent">
+                    Sent: {{ sent }}
+                </p>
+            </div>
+        </div>
+    {{/with}}
+</template>

@@ -1,0 +1,64 @@
+<template name="sidebar">
+    <aside id="sidebar" class="col-md-2 hidden-xs hidden-sm">
+        <div id="sidebar-content">
+            <div id="user-info" class="clearfix">
+                <div class="col-xs-3">
+                    <img src="/img/user_profile_32x32.png" class="img-circle" />
+                </div>
+                {{#with currentUser}}
+                <div class="col-xs-9">
+                    <p class="name">{{ fullName }}</p>
+                    <p class="title">{{ accountType }}</p>
+                </div>
+                {{/with}}
+            </div>
+            <ul id="navigation">
+                <li>
+                    <a href="#" class="main-menu-item">
+                        <i class="fa fa-chevron-right pull-right"></i>
+                        <i class="fa fa-file-text-o"></i>
+                        <span>Sales</span>
+                    </a>
+                    <ul class="sub-menu-1">
+                        <li><a href="{{pathFor route='home'}}">Link 1</a></li>
+                        <li><a href="{{pathFor route='home'}}">Link 2</a></li>
+                        <li><a href="{{pathFor route='home'}}">Link 3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="main-menu-item">
+                        <i class="fa fa-chevron-right pull-right"></i>
+                        <i class="fa fa-cog"></i>
+                        <span>Setup</span>
+                    </a>
+                    <ul class="sub-menu-1">
+                        <li><a href="{{pathFor route='home'}}">Items</a></li>
+                        <li><a href="{{pathFor route='home'}}">Drivers</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="main-menu-item">
+                        <i class="fa fa-chevron-right pull-right"></i>
+                        <i class="fa fa-bar-chart"></i>
+                        <span>Reports</span>
+                    </a>
+                    <ul class="sub-menu-1">
+                        <li><a href="{{pathFor route='home'}}">Daily Sales</a></li>
+                        <li><a href="{{pathFor route='home'}}">Summary</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="main-menu-item">
+                        <i class="fa fa-chevron-right pull-right"></i>
+                        <i class="fa fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                    <ul class="sub-menu-1">
+                        <li><a href="{{pathFor route='userAdministration'}}">All Users</a></li>
+                        <li><a href="{{pathFor route='rolesAndPermissionsAdministration'}}">Roles and Permissions</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</template>

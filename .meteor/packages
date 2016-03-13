@@ -29,3 +29,5 @@ rochal:slimscroll
 tsega:bootstrap3-datetimepicker
 reactive-var
 iron:router
+jagi:astronomy
+jagi:astronomy-validators

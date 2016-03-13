@@ -1,0 +1,71 @@
+<template name="main">
+    <h3>Summary for Today</h3>
+    <div id="dashboard">
+        <div id="widgets" class="row">
+            <div class="col-md-3">
+                <div class="widget widget-primary clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Sales</h4>
+                            <p class="widget-facts">{{todaysSales}}</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-file"></i>
+                        </div>
+                    </div>
+                    <p class="widget-detail">
+                        The number of sales made today.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-success clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Drivers</h4>
+                            <p class="widget-facts">{{todaysDrivers}}</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-users"></i>
+                        </div>
+                    </div>
+                    <p class="widget-detail">
+                        The number of drivers working today.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-warning clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Additional</h4>
+                            <p class="widget-facts">{{todaysAdditionalSales}}</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-comment"></i>
+                        </div>
+                    </div>
+                    <p class="widget-detail">
+                        Total additional items sales for today.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-danger clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Return</h4>
+                            <p class="widget-facts">{{todaysReturns}}</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-bar-chart"></i>
+                        </div>
+                    </div>
+                    <p class="widget-detail">
+                        The number of crates returned today.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
