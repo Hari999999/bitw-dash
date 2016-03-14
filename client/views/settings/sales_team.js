@@ -7,6 +7,7 @@ Template.salesTeam.onCreated(function () {
 });
 
 Template.salesTeam.onRendered(function () {
+    $.material.init();
     Session.set("salespersonSearchAttr", $("table thead td.active").data("search-name"));
 });
 
@@ -47,7 +48,7 @@ Template.salesTeam.helpers({
     },
     statusIcon: function () {
         var salesPerson = SalesTeam.findOne({_id: Session.get("selectedSalespersonId")});
-        return salesPerson && salesPerson.status ? "fa-check-circle" : "fa-minus-circle";
+        return salesPerson && salesPerson.isActive ? "fa-minus-circle" : "fa-check-circle";
     },
     changeStatusText: function () {
         var salesPerson = SalesTeam.findOne({_id: Session.get("selectedSalespersonId")});
@@ -124,6 +125,10 @@ Template.salesTeam.events({
         var selectedOption = t.$(e.target).val();
         Session.set("salespersonSearchAttr", selectedOption);
     }
+});
+
+Template.editSalespersonModal.onRendered(function(){
+    $.material.init();
 });
 
 Template.editSalespersonModal.helpers({

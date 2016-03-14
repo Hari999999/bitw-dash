@@ -8,34 +8,30 @@
                 <form id="new-salesperson-form">
                     {{#with salesperson}}
                         <div class="panel-body">
-                            <div class="form-group {{#if hasValidationError 'firstName'}} has-error {{/if}}">
-                                <label class="sr-only" for="new-salesperson-first-name">First Name</label>
-                                <input id="new-salesperson-first-name" class="form-control" name="newSalespersonFirstName"
-                                       placeholder="First Name"/>
+                            <div class="form-group label-floating {{#if hasValidationError 'firstName'}} has-error {{/if}}">
+                                <label class="control-label" for="new-salesperson-first-name">First Name</label>
+                                <input id="new-salesperson-first-name" class="form-control" name="newSalespersonFirstName"/>
                                 {{#if hasValidationError 'firstName'}}
                                     <span class="helper-block small has-error">{{getValidationError 'firstName'}}</span>
                                 {{/if}}
                             </div>
-                            <div class="form-group {{#if hasValidationError 'lastName'}} has-error {{/if}}">
-                                <label class="sr-only" for="new-salesperson-last-name">Last Name</label>
-                                <input id="new-salesperson-last-name" class="form-control" name="newSalespersonLastName"
-                                       placeholder="Last Name"/>
+                            <div class="form-group label-floating {{#if hasValidationError 'lastName'}} has-error {{/if}}">
+                                <label class="control-label" for="new-salesperson-last-name">Last Name</label>
+                                <input id="new-salesperson-last-name" class="form-control" name="newSalespersonLastName"/>
                                 {{#if hasValidationError 'lastName'}}
                                     <span class="helper-block small has-error">{{getValidationError 'lastName'}}</span>
                                 {{/if}}
                             </div>
-                            <div class="form-group {{#if hasValidationError 'position'}} has-error {{/if}}">
-                                <label class="sr-only" for="new-salesperson-position">Position</label>
-                                <input id="new-salesperson-position" class="form-control" name="newSalespersonPosition"
-                                       placeholder="Position"/>
+                            <div class="form-group label-floating {{#if hasValidationError 'position'}} has-error {{/if}}">
+                                <label class="control-label" for="new-salesperson-position">Position</label>
+                                <input id="new-salesperson-position" class="form-control" name="newSalespersonPosition"/>
                                 {{#if hasValidationError 'position'}}
                                     <span class="helper-block small has-error">{{getValidationError 'position'}}</span>
                                 {{/if}}
                             </div>
-                            <div class="form-group {{#if hasValidationError 'telephone'}} has-error {{/if}}">
-                                <label class="sr-only" for="new-salesperson-telephone">Telephone</label>
-                                <input id="new-salesperson-telephone" class="form-control" name="newSalespersonTelephone"
-                                       placeholder="Telephone"/>
+                            <div class="form-group label-floating {{#if hasValidationError 'telephone'}} has-error {{/if}}">
+                                <label class="control-label" for="new-salesperson-telephone">Telephone</label>
+                                <input id="new-salesperson-telephone" class="form-control" name="newSalespersonTelephone"/>
                                 {{#if hasValidationError 'telephone'}}
                                     <span class="helper-block small has-error">{{getValidationError 'telephone'}}</span>
                                 {{/if}}
@@ -57,7 +53,6 @@
                         <select id="salesperson-search-field" class="form-control">
                             <option value="fullName">Full Name</option>
                             <option value="position">Position</option>
-                            <option value="email">Email</option>
                             <option value="telephone">Telephone</option>
                         </select>
                     </div>
@@ -140,34 +135,34 @@
                     </div>
                     <div class="modal-body">
                         {{#with selectedSalesperson}}
-                            <div class="form-group {{#if hasValidationError 'firstName'}} has-error {{/if}}">
-                                <label class="sr-only" for="edit-salesperson-first-name">First Name</label>
+                            <div class="form-group label-floating {{#if hasValidationError 'firstName'}} has-error {{/if}}">
+                                <label class="control-label" for="edit-salesperson-first-name">First Name</label>
                                 <input id="edit-salesperson-first-name" class="form-control" name="editSalespersonFirstName"
-                                       placeholder="First Name" value="{{firstName}}"/>
+                                       value="{{firstName}}"/>
                                 {{#if hasValidationError 'firstName'}}
                                     <span class="helper-block small has-error">{{getValidationError 'firstName'}}</span>
                                 {{/if}}
                             </div>
-                            <div class="form-group {{#if hasValidationError 'lastName'}} has-error {{/if}}">
-                                <label class="sr-only" for="edit-salesperson-last-name">Last Name</label>
+                            <div class="form-group label-floating {{#if hasValidationError 'lastName'}} has-error {{/if}}">
+                                <label class="control-label" for="edit-salesperson-last-name">Last Name</label>
                                 <input id="edit-salesperson-last-name" class="form-control" name="editSalespersonLastName"
-                                       placeholder="Last Name" value="{{lastName}}"/>
+                                       value="{{lastName}}"/>
                                 {{#if hasValidationError 'lastName'}}
                                     <span class="helper-block small has-error">{{getValidationError 'lastName'}}</span>
                                 {{/if}}
                             </div>
-                            <div class="form-group {{#if hasValidationError 'position'}} has-error {{/if}}">
-                                <label class="sr-only" for="edit-salesperson-position">Position</label>
+                            <div class="form-group label-floating {{#if hasValidationError 'position'}} has-error {{/if}}">
+                                <label class="control-label" for="edit-salesperson-position">Position</label>
                                 <input id="edit-salesperson-position" class="form-control" name="editSalespersonPosition"
-                                       placeholder="Position" value="{{position}}"/>
+                                       value="{{position}}"/>
                                 {{#if hasValidationError 'position'}}
                                     <span class="helper-block small has-error">{{getValidationError 'position'}}</span>
                                 {{/if}}
                             </div>
-                            <div class="form-group {{#if hasValidationError 'telephone'}} has-error {{/if}}">
-                                <label class="sr-only" for="edit-salesperson-telephone">Telephone</label>
+                            <div class="form-group label-floating {{#if hasValidationError 'telephone'}} has-error {{/if}}">
+                                <label class="control-label" for="edit-salesperson-telephone">Telephone</label>
                                 <input id="edit-salesperson-telephone" class="form-control" name="editSalespersonTelephone"
-                                       placeholder="Telephone" value="{{telephone}}"/>
+                                       value="{{telephone}}"/>
                                 {{#if hasValidationError 'telephone'}}
                                     <span class="helper-block small has-error">{{getValidationError 'telephone'}}</span>
                                 {{/if}}
