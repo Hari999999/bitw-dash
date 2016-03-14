@@ -4,7 +4,7 @@ todayStart.setHours(0, 0, 0, 0);
 todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
-Template.main.helpers({
+Template.dashboard.helpers({
     todaysSales: function(){
         return "268,089";
     },
