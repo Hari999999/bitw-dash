@@ -47,9 +47,6 @@ Template.items.helpers({
     },
     activationState: function () {
         return this.isActive ? "" : "inactive";
-    },
-    price: function () {
-        return this.currentPrice();
     }
 });
 
@@ -65,12 +62,7 @@ Template.items.events({
             _id: null,
             name: t.find("#new-item-name").value,
             description: t.find("#new-item-description").value,
-            prices: [
-                {
-                    price: t.find("#new-item-price").value,
-                    effectiveDate: new Date()
-                }
-            ]
+            price: parseFloat(t.find("#new-item-price").value)
         };
 
         this.item.set(itemDoc);
@@ -90,9 +82,8 @@ Template.items.events({
     },
     "click a#change-item-status": function (e, t) {
         var item = Items.findOne({_id: Session.get("selectedItemId")});
-        if (item) {
-            Items.update({_id: item._id}, {$set: {isActive: !item.isActive}});
-        }
+        item.set({ isActive: !item.isActive });
+        Meteor.call("updateItem", item);
     },
     "click table#items-list thead td": function (e, t) {
         if (!$(e.target).hasClass("disabled")) {
@@ -119,5 +110,49 @@ Template.items.events({
     "change #item-search-field": function (e, t) {
         var selectedOption = t.$(e.target).val();
         Session.set("itemSearchAttr", selectedOption);
+    }
+});
+
+Template.editItemModal.onRendered(function () {
+    $.material.init();
+});
+
+Template.editItemModal.helpers({
+    selectedItem: function () {
+        return Items.findOne({_id: Session.get("selectedItemId")});
+    }
+});
+
+Template.editItemModal.events({
+    "submit #edit-item-modal form": function (e, t) {
+        e.preventDefault();
+
+        var selectedItemId = Session.get("selectedItemId");
+
+        if (selectedItemId) {
+
+            var itemDoc = {
+                _id: selectedItemId,
+                name: t.find("#edit-item-name").value,
+                description: t.find("#edit-item-description").value,
+                price: parseFloat(t.find("#edit-item-price").value)
+            };
+
+            this.selectedItem = Items.findOne({_id: selectedItemId});
+
+            this.selectedItem.set(itemDoc);
+
+            if (this.selectedItem.validate()) {
+                Meteor.call("updateItem", this.selectedItem, function (err) {
+                    if (err) throw err;
+
+                    $("#edit-item-modal").modal('hide');
+                    toastr.success("Item successfully edited!");
+                });
+            }
+        }
+
+        // Prevent form reload
+        return false;
     }
 });

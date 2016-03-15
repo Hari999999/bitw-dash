@@ -54,7 +54,7 @@ Template.salesTeam.helpers({
         var salesPerson = SalesTeam.findOne({_id: Session.get("selectedSalespersonId")});
         return salesPerson && salesPerson.isActive ? "Deactivate" : "Activate";
     },
-    activationState: function(){
+    activationState: function () {
         return this.isActive ? "" : "inactive";
     },
     fullName: function () {
@@ -95,7 +95,7 @@ Template.salesTeam.events({
     },
     "click a#change-salesperson-status": function (e, t) {
         var salesPerson = SalesTeam.findOne({_id: Session.get("selectedSalespersonId")});
-        if(salesPerson){
+        if (salesPerson) {
             SalesTeam.update({_id: salesPerson._id}, {$set: {isActive: !salesPerson.isActive}});
         }
     },
@@ -127,7 +127,7 @@ Template.salesTeam.events({
     }
 });
 
-Template.editSalespersonModal.onRendered(function(){
+Template.editSalespersonModal.onRendered(function () {
     $.material.init();
 });
 
@@ -158,9 +158,12 @@ Template.editSalespersonModal.events({
 
 
             if (this.selectedSalesperson.validate()) {
-                this.selectedSalesperson.save();
-                $("#edit-salesperson-modal").modal('hide');
-                toastr.success("Salesperson successfully edited!");
+                Meteor.call("updateSalesperson", this.selectedSalesperson, function (err) {
+                    if (err) throw err;
+
+                    $("#edit-salesperson-modal").modal('hide');
+                    toastr.success("Salesperson successfully edited!");
+                });
             }
         }
 
@@ -174,7 +177,7 @@ Template.deleteSalespersonModal.helpers({
         return SalesTeam.findOne({_id: Session.get("selectedSalespersonId")});
     },
     "fullName": function () {
-        return this.firstName + " " + this.lastName;
+        return this.fullName();
     }
 });
 
@@ -182,19 +185,19 @@ Template.deleteSalespersonModal.events({
     "submit #delete-salesperson-modal form": function (e, t) {
         e.preventDefault();
 
-        var selectedSalespersonId = Session.get("selectedSalespersonId");
+        var selectedSalesperson = SalesTeam.findOne({_id: Session.get("selectedSalespersonId")});
 
-        if (selectedSalespersonId) {
-            SalesTeam.remove({_id: selectedSalespersonId}, function (err) {
-                if (err) {
-                    toastr.error(err.reason);
-                } else {
-                    $("#delete-salesperson-modal").modal('hide');
-                    toastr.success("Salesperson successfully deleted!");
-                }
+        if (selectedSalesperson) {
+
+            Meteor.call("deleteSalesperson", selectedSalesperson, function (err) {
+                if (err) throw err;
+
+                $("#delete-salesperson-modal").modal('hide');
+
+                Session.set("selectedSalespersonId", null);
+
+                toastr.success("Salesperson successfully removed!");
             });
-
-            Session.set("selectedSalespersonId", null);
         }
 
         // Prevent form reload
