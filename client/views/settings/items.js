@@ -156,3 +156,33 @@ Template.editItemModal.events({
         return false;
     }
 });
+
+Template.deleteItemModal.helpers({
+    "selectedItem": function () {
+        return Items.findOne({_id: Session.get("selectedItemId")});
+    }
+});
+
+Template.deleteItemModal.events({
+    "submit #delete-item-modal form": function (e, t) {
+        e.preventDefault();
+
+        var selectedItem = Items.findOne({_id: Session.get("selectedItemId")});
+
+        if (selectedItem) {
+
+            Meteor.call("deleteItem", selectedItem, function (err) {
+                if (err) throw err;
+
+                $("#delete-item-modal").modal('hide');
+
+                Session.set("selectedItemId", null);
+
+                toastr.success("Item successfully removed!");
+            });
+        }
+
+        // Prevent form reload
+        return false;
+    }
+});

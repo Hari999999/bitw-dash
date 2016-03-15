@@ -115,6 +115,7 @@
         </div>
     </div>
     {{> editItemModal}}
+    {{> deleteItemModal}}
 </template>
 
 <template name="editItemModal">
@@ -160,6 +161,34 @@
                         </button>
                         <button type="button" class="btn btn-sm btn-danger btn-raised" data-dismiss="modal"><i
                                 class="fa fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<template name="deleteItemModal">
+    <div id="delete-item-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Delete Item <i class="fa fa-warning"></i></h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#with selectedItem}}
+                            <div>
+                                <p>Are you sure you want to delete the item: <strong>{{name}}</strong> ?</p>
+                            </div>
+                        {{/with}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm btn-danger btn-raised"><i class="fa fa-check"></i> Accept</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-raised" data-dismiss="modal"><i
+                                class="fa fa-times"></i> Cancel
                         </button>
                     </div>
                 </div>
