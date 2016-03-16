@@ -1,7 +1,18 @@
 Meteor.methods({
     "addNewUser": function (userDoc) {
+        userDoc.profile.isSuper = false;
         // If valid input provided, create user and return userId
         Accounts.createUser(userDoc);
+    },
+    "updateUser": function (userObj) {
+        userObj.save();
+    },
+    "deleteUser": function (userObj) {
+        if(!userObj.profile.isSuper){
+            userObj.remove();
+        } else {
+            throw new Meteor.Error("delete-super-error", "Cannot delete the super administrator account!");
+        }
     },
     "checkIfEmailExists": function (email) {
         var count = Meteor.users.find({

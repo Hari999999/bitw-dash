@@ -1,46 +1,8 @@
-Template.users.created = function () {
-    this.pagination = new Meteor.Pagination(Meteor.users, {
-        sort: {
-            username: 1
-        }
-    });
-};
-
-Template.users.helpers({
-    templatePagination: function () {
-        return Template.instance().pagination;
-    },
-    users: function () {
-        if (Session.get("searchAttr") && Session.get("searchValue")) {
-            var searchFilter = {};
-            var searchObject = {
-                $regex: Session.get("searchValue"), $options: 'i'
-            };
-            searchFilter["profile." + Session.get("searchAttr")] = searchObject;
-            Template.instance().pagination.filters(searchFilter);
-        } else {
-            Template.instance().pagination.filters({});
-        }
-        return Template.instance().pagination.getPage();
-    },
-    canEditUser: function () {
-        return Session.get("selectedUserId") ? "" : "disabled";
-    }
+Template.usersSearch.onRendered(function(){
+    Session.set("userSearchAttr", $("table#users-list thead td.active").data("search-name"));
 });
 
-Template.users.events({
-    "click table tr": function (e, t) {
-        Session.equals("selectedUserId", this._id) ?
-            Session.set("selectedUserId", null) : Session.set("selectedUserId", this._id);
-    },
-    "click table thead td": function (e, t) {
-        var index = $(event.target).index() + 1;
-
-        t.$("table thead td.active").removeClass("active");
-        t.$("table thead td:nth-child(" + index + ")").addClass("active");
-
-        Session.set("searchAttr", $(event.target).data("search-name"));
-    },
+Template.usersSearch.events({
     "keyup input#search-users": function (e, t) {
         $("#search-users-form").trigger("submit");
     },
@@ -49,52 +11,31 @@ Template.users.events({
 
         var searchTerm = t.find("#search-users").value;
         if(searchTerm){
-            Session.set("searchValue", searchTerm);
+            Session.set("userSearchValue", searchTerm);
         } else {
-            Session.set("searchValue", null);
+            Session.set("userSearchValue", null);
         }
 
         return false;
     },
     "change #user-search-field": function(e, t){
         var selectedOption = t.$(e.target).val();
-        Session.set("searchAttr", selectedOption);
+        Session.set("userSearchAttr", selectedOption);
     }
 });
 
-Template.users.onRendered(function () {
-    Session.set("searchAttr", $("table thead td.active").data("search-name"));
+Template.newUser.onRendered(function(){
+    $.material.init();
 });
 
-Template.user.helpers({
-    selectedUser: function () {
-        return Session.equals("selectedUserId", this._id) ? "active" : "";
-    },
-    userRole: function () {
-        return this.role().name;
-    }
-});
-
-Template.user.events({});
-
-Template.user.onRendered(function () {
-
-});
-
-Template.newUserModal.helpers({
-    "userRoles": function () {
+Template.newUser.helpers({
+    userRoles: function () {
         return Roles.find();
-    },
-    "hasErrors": function () {
-        return Session.get("errorMessage") ? true : false;
-    },
-    "errors": function () {
-        return Session.get("errorMessage");
     }
 });
 
-Template.newUserModal.events({
-    "submit #new-user-modal form": function (e, t) {
+Template.newUser.events({
+    "submit #new-user-form": function (e, t) {
         e.preventDefault();
 
         // New user document
@@ -102,13 +43,7 @@ Template.newUserModal.events({
             username: t.find("#new-user-username").value,
             password: t.find("#new-user-password").value,
             profile: {
-                roleId: t.find("#new-user-role").value != "empty" ? t.find("#new-user-role").value : "",
-                firstName: t.find("#new-user-first-name").value,
-                lastName: t.find("#new-user-last-name").value,
-                address: t.find("#new-user-address").value,
-                city: t.find("#new-user-city").value,
-                state: t.find("#new-user-state").value,
-                postalCode: t.find("#new-user-postal-code").value
+                roleId: t.find("#new-user-role").value != "empty" ? t.find("#new-user-role").value : ""
             }
         };
 
@@ -122,6 +57,7 @@ Template.newUserModal.events({
                     $("#new-user-modal").modal('hide');
                     // Send notification to Admin(s)
                     Notify.admin("New User Created", "A new user has been created!");
+                    t.find("form").reset();
                     toastr.success("User successfully created!");
                 }
             });
@@ -129,23 +65,74 @@ Template.newUserModal.events({
 
         // Prevent form reload
         return false;
+    },
+    "click button.btn-clear": function (e, t) {
+        t.find("#new-user-form").reset();
+    }
+});
+
+Template.users.onCreated(function () {
+    this.pagination = new Meteor.Pagination(Meteor.users, {
+        sort: {
+            username: 1
+        }
+    });
+});
+
+Template.users.helpers({
+    templatePagination: function () {
+        return Template.instance().pagination;
+    },
+    users: function () {
+        if (Session.get("userSearchAttr") && Session.get("userSearchValue")) {
+            var searchFilter = {};
+            var searchObject = {
+                $regex: Session.get("userSearchValue"), $options: 'i'
+            };
+            searchFilter[Session.get("userSearchAttr")] = searchObject;
+            Template.instance().pagination.filters(searchFilter);
+        } else {
+            Template.instance().pagination.filters({});
+        }
+        return Template.instance().pagination.getPage();
+    },
+    canEditUser: function () {
+        return Session.get("selectedUserId") ? "" : "disabled";
+    }
+});
+
+Template.users.events({
+    "click table#users-list tr": function (e, t) {
+        Session.equals("selectedUserId", this._id) ?
+            Session.set("selectedUserId", null) : Session.set("selectedUserId", this._id);
+    },
+    "click table#users-list thead td": function (e, t) {
+        var index = $(event.target).index() + 1;
+
+        t.$("table thead td.active").removeClass("active");
+        t.$("table thead td:nth-child(" + index + ")").addClass("active");
+
+        Session.set("userSearchAttr", $(event.target).data("search-name"));
+    }
+});
+
+Template.user.helpers({
+    selectedUser: function () {
+        return Session.equals("selectedUserId", this._id) ? "active" : "";
+    },
+    userRole: function () {
+        return this.role() ? this.role().name : "";
     }
 });
 
 Template.editUserModal.helpers({
-    "userRoles": function () {
+    userRoles: function () {
         return Roles.find();
     },
-    "selectedRole": function (roleId) {
+    selectedRole: function (roleId) {
         return Template.parentData(1).profile.roleId == roleId ? "selected" : "";
     },
-    "hasErrors": function () {
-        return Session.get("errorMessage") ? true : false;
-    },
-    "errors": function () {
-        return Session.get("errorMessage");
-    },
-    "selectedUser": function () {
+    selectedUser: function () {
         this.selectedUser = Meteor.users.findOne({_id: Session.get("selectedUserId")});
         return this.selectedUser;
     }
@@ -158,31 +145,25 @@ Template.editUserModal.events({
         // Edit user document
         var userDoc = {
             profile: {
-                roleId: t.find("#edit-user-role").value != "empty" ? t.find("#edit-user-role").value : "",
-                firstName: t.find("#edit-user-first-name").value,
-                lastName: t.find("#edit-user-last-name").value,
-                address: t.find("#edit-user-address").value,
-                city: t.find("#edit-user-city").value,
-                state: t.find("#edit-user-state").value,
-                postalCode: t.find("#edit-user-postal-code").value
+                roleId: t.find("#edit-user-role").value != "empty" ? t.find("#edit-user-role").value : ""
             }
         };
-
 
         var selectedUserId = Session.get("selectedUserId");
 
         if (selectedUserId) {
 
+            this.selectedUser = Meteor.users.findOne({_id: selectedUserId});
+
             this.selectedUser.set(userDoc);
 
-            // Hack: Temporarily add password field so that the validation will pass
+            // TODO: Remove this hack added for the validation to pass
             this.selectedUser.set({password: "P@ssw0rd!"});
 
             if (this.selectedUser.validate()) {
                 // Update the selected user
-                Meteor.users.update({_id: selectedUserId}, {$set: userDoc}, function (err) {
+                Meteor.call("updateUser", this.selectedUser, function(err){
                     if (err) {
-                        // Handle any errors, also checks for uniqueness of email address
                         Session.set("errorMessage", err.reason);
                     } else {
                         Session.set("selectedUserId", null);
@@ -198,11 +179,8 @@ Template.editUserModal.events({
 });
 
 Template.deleteUserModal.helpers({
-    "selectedUser": function () {
+    selectedUser: function () {
         return Meteor.users.findOne({_id: Session.get("selectedUserId")});
-    },
-    "fullName": function () {
-        return this.profile.firstName + " " + this.profile.lastName;
     }
 });
 
@@ -213,11 +191,11 @@ Template.deleteUserModal.events({
         var selectedUserId = Session.get("selectedUserId");
 
         if (selectedUserId) {
-            // Remove selected user from the collection
-            Meteor.users.remove({_id: selectedUserId}, function (err) {
+            this.selectedUser = Meteor.users.findOne({_id: selectedUserId});
+
+            Meteor.call("deleteUser", this.selectedUser, function (err) {
                 if (err) {
-                    // Handle any errors, also checks for uniqueness of email address
-                    Session.set("errorMessage", err.reason);
+                    toastr.error(err.reason);
                 } else {
                     $("#delete-user-modal").modal('hide');
                     Session.set("selectedUserId", null);

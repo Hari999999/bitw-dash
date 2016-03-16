@@ -156,7 +156,7 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-primary btn-raised" tabindex="7">
+                        <button type="submit" class="btn btn-sm btn-primary btn-raised">
                             <i class="fa fa-floppy-o"></i> Save
                         </button>
                         <button type="button" class="btn btn-sm btn-danger btn-raised" data-dismiss="modal"><i
@@ -182,6 +182,9 @@
                         {{#with selectedItem}}
                             <div>
                                 <p>Are you sure you want to delete the item: <strong>{{name}}</strong> ?</p>
+                                <p class="alert alert-danger">
+                                    <strong>WARNING:</strong> All related data will also be removed!
+                                </p>
                             </div>
                         {{/with}}
                     </div>

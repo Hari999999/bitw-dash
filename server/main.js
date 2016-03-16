@@ -45,13 +45,8 @@ Meteor.startup(function(){
             username: "Admin",
             password: "P@ssw0rd!",
             profile: {
-                firstName: "Super",
-                lastName: "Admin",
                 roleId: adminRole._id,
-                address: "N/A",
-                city: "N/A",
-                state: "N/A",
-                postalCode: "N/A"
+                isSuper: true
             }
         });
     }

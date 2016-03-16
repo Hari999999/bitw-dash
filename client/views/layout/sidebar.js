@@ -16,11 +16,8 @@ Template.sidebar.helpers({
     currentUser: function(){
         return Meteor.user();
     },
-    fullName: function(){
-        return this.profile.firstName + " " + this.profile.lastName;
-    },
     accountType: function(){
-        return this.profile.acctType;
+        return this.role() ? this.role().name : "";
     }
 });
 

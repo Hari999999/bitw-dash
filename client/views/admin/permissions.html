@@ -1,0 +1,155 @@
+<template name="permissionsSearch">
+    <div class="visible-xs">
+        <select id="permission-search-field" class="form-control">
+            <option value="module">Module</option>
+            <option value="operation">Operation</option>
+        </select>
+    </div>
+    <form id="search-permissions-form" class="pull-right form-inline">
+        <div class="form-group">
+            <div class="input-group">
+                <input id="search-permissions" type="text" class="form-control" data-form-type="role"
+                       aria-label="Search" placeholder="Search"/>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-fab btn-fab-mini">
+                        <i class="fa fa-search" data-form-type="search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </form>
+</template>
+
+<template name="newPermission">
+    <form id="new-permission-form" class="form-inline new-form">
+        <div class="form-group label-floating">
+            <label class="control-label" for="new-permission-module">Module</label>
+            <input id="new-permission-module" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <select id="new-permission-operation" class="form-control">
+                    <option value="empty" disabled selected> -- Select Operation --</option>
+                    <option value="view">View</option>
+                    <option value="add">Add</option>
+                    <option value="edit">Edit</option>
+                    <option value="delete">Delete</option>
+                </select>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-fab btn-fab-mini">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </form>
+</template>
+
+<template name="permissions">
+    <table id="permissions-list" class="table table-striped table-hover">
+        <thead>
+        <tr class="hidden-xs">
+            <td class="active" data-search-name="module">Module</td>
+            <td data-search-name="operation">Operation</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each permissions}}
+            {{> permission}}
+        {{/each}}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="2">
+                {{> defaultBootstrapPaginator pagination=templatePagination limit=6 containerClass="text-center"}}
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</template>
+
+<template name="permission">
+    <tr class="{{selectedPermission}}">
+        <td>
+            <span class="hidden-xs">{{ module }}</span>
+            <div class="visible-xs">
+                <p><strong>Module:</strong> {{ module }}</p>
+                <p><strong>Operation:</strong> {{ operation }}</p>
+            </div>
+        </td>
+        <td class="hidden-xs">{{ operation }}</td>
+    </tr>
+</template>
+
+<template name="editPermissionModal">
+    <div id="edit-permission-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Edit Permission</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#with selectedPermission}}
+                            <div class="form-group">
+                                <input id="edit-permission-module" class="form-control" type="text" placeholder="Module"
+                                       value="{{module}}">
+                            </div>
+                            <div class="form-group">
+                                <select id="edit-permission-operation" class="form-control">
+                                    <option value="empty" disabled selected>--Select Operation--</option>
+                                    <option value="view" {{operationEquals 'view'}} >View</option>
+                                    <option value="add" {{operationEquals 'add' }} >Add</option>
+                                    <option value="edit" {{operationEquals 'edit' }} >Edit</option>
+                                    <option value="delete" {{operationEquals 'delete' }} >Delete</option>
+                                </select>
+                            </div>
+                        {{/with}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-raised btn-sm btn-primary">
+                            <i class="fa fa-floppy-o"></i> Save
+                        </button>
+                        <button type="button" class="btn btn-raised btn-sm btn-danger" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<template name="deletePermissionModal">
+    <div id="delete-permission-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Delete Permission <i class="fa fa-warning"></i></h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#with selectedPermission}}
+                            <div>
+                                <p>Are you sure you want to delete the user permission: <strong>{{module}} - {{operation}}</strong> ?</p>
+                                <p class="alert alert-danger">
+                                    <strong>WARNING:</strong> All related data will also be removed!
+                                </p>
+                            </div>
+                        {{/with}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-raised btn-sm btn-danger">
+                            <i class="fa fa-check"></i> Accept
+                        </button>
+                        <button type="button" class="btn btn-raised btn-sm btn-primary" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>

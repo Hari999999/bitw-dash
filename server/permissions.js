@@ -24,7 +24,7 @@ Permissions.allow({
 
 Meteor.users.allow({
     insert: function(userId, doc){
-        var adminRole = Roles.Collection.find({name: "Administrator"});
+        var adminRole = Roles.find({name: "Administrator"});
         var adminUser = Meteor.users.find({_id: userId, "profile.roleId": adminRole.roleId});
         return adminUser ? true : false;
     },
@@ -32,7 +32,7 @@ Meteor.users.allow({
         return true;
     },
     remove: function(userId, doc){
-        var adminRole = Roles.Collection.find({name: "Administrator"});
+        var adminRole = Roles.find({name: "Administrator"});
         var adminUser = Meteor.users.find({_id: userId, "profile.roleId": adminRole.roleId});
         return adminUser ? true : false;
     }

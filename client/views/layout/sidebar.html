@@ -7,8 +7,8 @@
                 </div>
                 {{#with currentUser}}
                 <div class="col-xs-9">
-                    <p class="name">{{ fullName }}</p>
-                    <p class="title">{{ accountType }}</p>
+                    <p class="name"> {{ username }}</p>
+                    <p class="title"> {{ accountType }}</p>
                 </div>
                 {{/with}}
             </div>
@@ -54,7 +54,7 @@
                         <span>Users</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li><a href="{{pathFor route='userAdministration'}}">All Users</a></li>
+                        <li><a href="{{pathFor route='userAdministration'}}">Accounts</a></li>
                         <li><a href="{{pathFor route='rolesAndPermissionsAdministration'}}">Roles and Permissions</a></li>
                     </ul>
                 </li>
