@@ -39,7 +39,7 @@ Template.dailySales.helpers({
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
         });
         var goal = dailySales ? dailySales.goal : 0;
-        return (goal * this.price).toFixed(2);
+        return accounting.formatMoney(goal * this.price,"");
     },
     soldItem: function () {
         var dailySales = Sales.findOne({
@@ -56,51 +56,95 @@ Template.dailySales.helpers({
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
         });
         var sold = dailySales ? dailySales.sold : 0;
-        return (sold * this.price).toFixed(2);
+        return accounting.formatMoney(sold * this.price,"");
     },
     salespersonTotalGoal: function () {
         var salespersonId = this._id;
-        return 0;
+        var dailyTotal = clientSalespersonTotalDailySales.findOne({
+            salespersonId: salespersonId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? dailyTotal.goal : 0;
     },
     salespersonTotalGoalRevenue: function () {
         var salespersonId = this._id;
-        return 0;
+        var dailyTotal = clientSalespersonTotalDailySales.findOne({
+            salespersonId: salespersonId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.goalRevenue,"")  : 0;
     },
     salespersonTotalSold: function () {
         var salespersonId = this._id;
-        return 0;
+        var dailyTotal = clientSalespersonTotalDailySales.findOne({
+            salespersonId: salespersonId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? dailyTotal.sold : 0;
     },
     salespersonTotalSoldRevenue: function () {
         var salespersonId = this._id;
-        return 0;
+        var dailyTotal = clientSalespersonTotalDailySales.findOne({
+            salespersonId: salespersonId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.soldRevenue,"") : 0;
     },
     itemTotalGoal: function () {
         var itemId = this._id;
-        return 0;
+        var dailyTotal = clientItemTotalDailySales.findOne({
+            itemId: itemId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? dailyTotal.goal : 0;
     },
     itemTotalGoalRevenue: function () {
         var itemId = this._id;
-        return 0;
+        var dailyTotal = clientItemTotalDailySales.findOne({
+            itemId: itemId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.goalRevenue,"") : 0;
     },
     itemTotalSold: function () {
         var itemId = this._id;
-        return 0;
+        var dailyTotal = clientItemTotalDailySales.findOne({
+            itemId: itemId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? dailyTotal.sold : 0;
     },
     itemTotalSoldRevenue: function () {
         var itemId = this._id;
-        return 0;
+        var dailyTotal = clientItemTotalDailySales.findOne({
+            itemId: itemId,
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.soldRevenue,"") : 0;
     },
     totalGoal: function () {
-        return 0;
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? dailyTotal.goal : 0;
     },
     totalGoalRevenue: function () {
-        return 0;
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.goalRevenue,"") : 0;
     },
     totalSold: function () {
-        return 0;
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? dailyTotal.sold : 0;
     },
     totalSoldRevenue: function () {
-        return 0;
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.soldRevenue,"") : 0;
     }
 });
 
@@ -108,13 +152,15 @@ Template.dailySales.events({
     "blur td.daily-entry input.sold": function (e, t) {
         var salespersonId = t.$(e.target).data("salesperson-id");
         var itemId = t.$(e.target).data("item-id");
+        var itemPrice = parseFloat(t.$(e.target).data("item-price"));
         var goalSelector = 'input[data-salesperson-id="' + salespersonId + '"][data-item-id="' + itemId + '"][data-entry-type="goal"]';
-        var goal = t.$(goalSelector).val();
-        var sold = t.$(e.target).val();
+        var goal = parseInt(t.$(goalSelector).val(), 10);
+        var sold = parseInt(t.$(e.target).val(), 10);
 
         var salesDoc = {
             salespersonId: salespersonId,
             itemId: itemId,
+            itemPrice: itemPrice,
             goal: goal,
             sold: sold,
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
@@ -129,9 +175,13 @@ Template.dailySales.events({
 });
 
 Template.setSalesDate.onRendered(function () {
+    Session.set("selectedDate", moment().format("DD-MM-YYYY"));
+
     this.$('.date-time-picker').datetimepicker({
         format: "DD-MM-YYYY"
     });
+
+    this.$('.date-time-picker input').attr("placeholder", moment(Session.get("selectedDate"), "DD-MM-YYYY").format("DD-MM-YYYY"));
 });
 
 Template.setSalesDate.events({

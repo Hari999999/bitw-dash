@@ -1,20 +1,24 @@
 <template name="dashboard">
-    <h3>Summary for Today</h3>
+    <div class="clearfix">
+        <h3 class="pull-left">Summary for {{selectedDate}}</h3>
+        {{> setSalesDate }}
+    </div>
+
     <div id="dashboard">
         <div id="widgets" class="row">
             <div class="col-md-3">
                 <div class="widget widget-primary clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">Sales</h4>
-                            <p class="widget-facts">{{todaysSales}}</p>
+                            <h4 class="widget-title">Goal</h4>
+                            <p class="widget-facts">{{selectedDateGoal}}</p>
                         </div>
                         <div class="widget-icon col-xs-4">
-                            <i class="fa fa-file"></i>
+                            <i class="fa fa-bullseye"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        Total sales made today.
+                        Total goal sales set for the day.
                     </p>
                 </div>
             </div>
@@ -22,15 +26,16 @@
                 <div class="widget widget-success clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">Sales Team</h4>
-                            <p class="widget-facts">{{todaysDrivers}}</p>
+                            <h4 class="widget-title">Sales</h4>
+                            <p class="widget-facts">{{selectedDateSales}}</p>
+                            <p class="widget-facts-percentage">{{achievementPercentage}}%</p>
                         </div>
                         <div class="widget-icon col-xs-4">
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-money"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        Sales team members working today.
+                        Total actual sales made on the day.
                     </p>
                 </div>
             </div>
@@ -38,15 +43,15 @@
                 <div class="widget widget-warning clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">Additional</h4>
-                            <p class="widget-facts">{{todaysAdditionalSales}}</p>
+                            <h4 class="widget-title">Sales Team</h4>
+                            <p class="widget-facts">{{selectedDateSalesTeam}}</p>
                         </div>
                         <div class="widget-icon col-xs-4">
-                            <i class="fa fa-comment"></i>
+                            <i class="fa fa-users"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        Total additional items sales for today.
+                        Number of Salesperson deployed on the day.
                     </p>
                 </div>
             </div>
@@ -54,18 +59,55 @@
                 <div class="widget widget-danger clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">Return</h4>
-                            <p class="widget-facts">{{todaysReturns}}</p>
+                            <h4 class="widget-title">Returns</h4>
+                            <p class="widget-facts">{{selectedDateReturns}}</p>
                         </div>
                         <div class="widget-icon col-xs-4">
-                            <i class="fa fa-bar-chart"></i>
+                            <i class="fa fa-undo"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        The number of crates returned today.
+                        Number of crates returned on the day.
                     </p>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            Graph
+        </div>
+        <div class="col-sm-4">
+            {{> dailyPerformance}}
+        </div>
+    </div>
+</template>
+
+<template name="dailyPerformance">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4>Top Performers</h4>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                {{#each topPerformers}}
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="row-content">
+                            <h4 class="list-group-item-heading">{{salespersonName}}</h4>
+                            <p class="list-group-item-text">
+                                <strong>G:</strong>{{salespersonGoal}}
+                                <strong>S:</strong>{{salespersonSold}}
+                                <strong>P:</strong>{{salespersonPercentage}}%
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                {{/each}}
+            </div>
+
         </div>
     </div>
 </template>

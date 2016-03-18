@@ -4,17 +4,70 @@ todayStart.setHours(0, 0, 0, 0);
 todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
+Template.dashboard.onRendered(function(){
+   Session.set("selectedDate", moment().format("DD-MM-YYYY"));
+});
+
 Template.dashboard.helpers({
-    todaysSales: function(){
-        return "268,089";
+    selectedDate: function () {
+        return Session.get("selectedDate") ?
+            moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
+            moment().format("MMMM DD, YYYY")
     },
-    todaysDrivers: function(){
-        return 5;
+    selectedDateGoal: function () {
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.goalRevenue, "") : 0;
     },
-    todaysAdditionalSales: function(){
-        return 12;
+    selectedDateSales: function () {
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? accounting.formatMoney(dailyTotal.soldRevenue, "") : 0;
     },
-    todaysReturns: function(){
-        return 10;
+    achievementPercentage: function () {
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? parseInt((dailyTotal.soldRevenue/dailyTotal.goalRevenue)*100) : 0;
+    },
+    selectedDateSalesTeam: function () {
+        return clientSalespersonTotalDailySales.find({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        }).count();
+    },
+    selectedDateReturns: function () {
+        var dailyTotal = clientTotalDailySales.findOne({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        });
+        return dailyTotal ? dailyTotal.goal - dailyTotal.sold : 0;
     }
 });
+
+Template.dailyPerformance.helpers({
+    selectedDate: function () {
+        return Session.get("selectedDate") ?
+            moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
+            moment().format("MMMM DD, YYYY")
+    },
+    topPerformers: function(){
+        return clientSalespersonTotalDailySales.find({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        }, {sort: {soldRevenue: -1}, limit: 5});
+    },
+    salespersonName: function(){
+        return SalesTeam.findOne({_id: this.salespersonId}).fullName();
+    },
+    salespersonGoal: function(){
+        return accounting.formatMoney(this.goalRevenue,"");
+    },
+    salespersonSold: function(){
+        return accounting.formatMoney(this.soldRevenue,"");
+    },
+    salespersonPercentage: function(){
+        return parseInt((this.soldRevenue/this.goalRevenue) * 100);
+    }
+});
+
+

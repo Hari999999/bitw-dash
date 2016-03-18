@@ -31,3 +31,5 @@ reactive-var
 iron:router
 jagi:astronomy
 jagi:astronomy-validators
+jcbernack:reactive-aggregate
+lepozepo:accounting

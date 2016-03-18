@@ -28,21 +28,17 @@
                                         <div class="col-sm-6">
                                             <input class="form-control goal" type="number" min="0"
                                                    data-salesperson-id="{{salesPersonId}}" data-item-id="{{_id}}"
-                                                   data-entry-type="goal"
+                                                   data-item-price="{{price}}" data-entry-type="goal"
                                                    value="{{goalForItem}}"/>
-                                            <input class="form-control goal disabled" type="number" min="0"
-                                                   data-salesperson-id="{{salesPersonId}}" data-item-id="{{_id}}"
-                                                   data-entry-type="goal"
+                                            <input class="form-control goal disabled"
                                                    value="{{goalRevenueForItem}}" disabled/>
                                         </div>
                                         <div class="col-sm-6">
                                             <input class="form-control sold" type="number" min="0"
                                                    data-salesperson-id="{{salesPersonId}}" data-item-id="{{_id}}"
-                                                   data-entry-type="sold"
+                                                   data-item-price="{{price}}" data-entry-type="sold"
                                                    value="{{soldItem}}"/>
-                                            <input class="form-control sold disabled" type="number" min="0"
-                                                   data-salesperson-id="{{salesPersonId}}" data-item-id="{{_id}}"
-                                                   data-entry-type="sold"
+                                            <input class="form-control sold disabled"
                                                    value="{{soldItemRevenue}}" disabled/>
                                         </div>
                                     </div>
@@ -51,15 +47,15 @@
                             <td>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <input class="form-control goal disabled" type="number" min="0" disabled
+                                        <input class="form-control goal disabled" disabled
                                                value="{{salespersonTotalGoal}}"/>
-                                        <input class="form-control goal disabled" type="number" min="0" disabled
+                                        <input class="form-control goal disabled" disabled
                                                value="{{salespersonTotalGoalRevenue}}"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input class="form-control sold disabled" type="number" min="0" disabled
+                                        <input class="form-control sold disabled" disabled
                                                value="{{salespersonTotalSold}}"/>
-                                        <input class="form-control sold disabled" type="number" min="0" disabled
+                                        <input class="form-control sold disabled" disabled
                                                value="{{salespersonTotalSoldRevenue}}"/>
                                     </div>
                                 </div>
@@ -74,15 +70,15 @@
                             <td>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <input class="form-control goal disabled" type="number" min="0" disabled
+                                        <input class="form-control goal disabled" disabled
                                                value="{{itemTotalGoal}}"/>
-                                        <input class="form-control goal disabled" type="number" min="0" disabled
+                                        <input class="form-control goal disabled" disabled
                                                value="{{itemTotalGoalRevenue}}"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input class="form-control sold disabled" type="number" min="0" disabled
+                                        <input class="form-control sold disabled" disabled
                                                value="{{itemTotalSold}}"/>
-                                        <input class="form-control sold disabled" type="number" min="0" disabled
+                                        <input class="form-control sold disabled" disabled
                                                value="{{itemTotalSoldRevenue}}"/>
                                     </div>
                                 </div>
@@ -91,15 +87,15 @@
                         <td>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input class="form-control goal disabled" type="number" min="0" disabled
+                                    <input class="form-control goal disabled" disabled
                                            value="{{totalGoal}}"/>
-                                    <input class="form-control goal disabled" type="number" min="0" disabled
+                                    <input class="form-control goal disabled" disabled
                                            value="{{totalGoalRevenue}}"/>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input class="form-control sold disabled" type="number" min="0" disabled
+                                    <input class="form-control sold disabled" disabled
                                            value="{{totalSold}}"/>
-                                    <input class="form-control sold disabled" type="number" min="0" disabled
+                                    <input class="form-control sold disabled" disabled
                                            value="{{totalSoldRevenue}}"/>
                                 </div>
                             </div>
