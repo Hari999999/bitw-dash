@@ -150,6 +150,46 @@ table.table {
   }
 }
 
+div#daily-sales-container {
+  overflow: scroll;
+  table#daily-sales {
+    th{
+      min-width: 150px;
+    }
+    .row {
+      margin: 0 0 0 0;
+      padding: 0 0 0 0;
+      .col-sm-6 {
+        margin: 0 0 0 0;
+        padding: 0 3px 0 0;
+        .form-group {
+          margin: 0px;
+          padding: 0px;
+          input.form-control {
+            color: #000;
+            text-align: right;
+            font-size: .8em;
+            &.goal {
+              background-color: rgba(76, 175, 80, 0.5);
+              &.disabled{
+                color: #888;
+                background-color: rgba(76, 175, 80, 0.2);
+              }
+            }
+            &.sold {
+              background-color: rgba(229, 175, 25, 0.5);
+              &.disabled{
+                color: #888;
+                background-color: rgba(229, 175, 25, 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 div.panel {
   div.panel-heading {
     div.form-group {
@@ -378,7 +418,7 @@ table {
         }
       }
       tr.inactive {
-        td{
+        td {
           color: #555 !important;
           background-color: #ccc !important;
         }
@@ -412,16 +452,16 @@ button.btn-fab.btn-fab-mini {
   }
 }
 
-.pagination{
-  li{
-    a{
+.pagination {
+  li {
+    a {
       color: #009688;
-      &:hover{
+      &:hover {
         color: #009688;
       }
     }
-    &.active{
-      a, a:hover, a:visited{
+    &.active {
+      a, a:hover, a:visited {
         background-color: #009688;
         border-color: #009688;
         color: #fff;
@@ -429,3 +469,16 @@ button.btn-fab.btn-fab-mini {
     }
   }
 }
+
+div#legend {
+  margin: 20px 0px;
+  i {
+    &.goal {
+      color: rgba(76, 175, 80, 0.5);
+    }
+    &.sold {
+      color: rgba(229, 175, 25, 0.5);
+    }
+  }
+}
+

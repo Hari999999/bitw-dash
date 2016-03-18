@@ -4,3 +4,4 @@ new Meteor.Pagination(Permissions);
 new Meteor.Pagination(Notifications);
 new Meteor.Pagination(SalesTeam);
 new Meteor.Pagination(Items);
+new Meteor.Pagination(Sales);
