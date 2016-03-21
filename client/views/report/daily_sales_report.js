@@ -1,4 +1,3 @@
-
 initializeGraph = function () {
 
 
@@ -33,6 +32,7 @@ initializeGraph = function () {
     });
 
     var chart;
+
     nv.addGraph(function () {
         chart = nv.models.multiBarChart()
             .color(["#4caf50", "#e5af19"])
