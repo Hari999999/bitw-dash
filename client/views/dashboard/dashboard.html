@@ -90,22 +90,28 @@
         </div>
         <div class="panel-body">
             <div class="list-group">
-                {{#each topPerformers}}
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="fa fa-user"></i>
+                {{#if hasPerformers}}
+                    {{#each topPerformers}}
+                        <div class="list-group-item">
+                            <div class="row-action-primary">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="row-content">
+                                <h4 class="list-group-item-heading">{{salespersonName}}</h4>
+                                <p class="list-group-item-text">
+                                    <strong>G:</strong>{{salespersonGoal}}
+                                    <strong>S:</strong>{{salespersonSold}}
+                                    <strong>P:</strong>{{salespersonPercentage}}%
+                                </p>
+                            </div>
                         </div>
-                        <div class="row-content">
-                            <h4 class="list-group-item-heading">{{salespersonName}}</h4>
-                            <p class="list-group-item-text">
-                                <strong>G:</strong>{{salespersonGoal}}
-                                <strong>S:</strong>{{salespersonSold}}
-                                <strong>P:</strong>{{salespersonPercentage}}%
-                            </p>
-                        </div>
+                        <div class="list-group-separator"></div>
+                    {{/each}}
+                {{else}}
+                    <div class="no-data">
+                        <p class="text-center"><strong>No Data Available</strong></p>
                     </div>
-                    <div class="list-group-separator"></div>
-                {{/each}}
+                {{/if}}
             </div>
 
         </div>

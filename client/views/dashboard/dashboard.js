@@ -5,7 +5,7 @@ todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
 Template.dashboard.onRendered(function(){
-   Session.set("selectedDate", moment().format("DD-MM-YYYY"));
+   Session.set("selectedDate", ""); //moment().format("DD-MM-YYYY"));
 });
 
 Template.dashboard.helpers({
@@ -51,6 +51,11 @@ Template.dailyPerformance.helpers({
             moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
             moment().format("MMMM DD, YYYY")
     },
+    hasPerformers: function(){
+        return clientSalespersonTotalDailySales.find({
+            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+        }).count() > 0;
+    },
     topPerformers: function(){
         return clientSalespersonTotalDailySales.find({
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
@@ -66,7 +71,11 @@ Template.dailyPerformance.helpers({
         return accounting.formatMoney(this.soldRevenue,"");
     },
     salespersonPercentage: function(){
-        return parseInt((this.soldRevenue/this.goalRevenue) * 100);
+        var percentage = 0;
+        if(this.soldRevenue && this.goalRevenue){
+            percentage = parseInt((this.soldRevenue/this.goalRevenue) * 100);
+        }
+        return percentage;
     }
 });
 
