@@ -9,11 +9,6 @@ Template.dashboard.onRendered(function(){
 });
 
 Template.dashboard.helpers({
-    selectedDate: function () {
-        return Session.get("selectedDate") ?
-            moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
-            moment().format("MMMM DD, YYYY")
-    },
     selectedDateGoal: function () {
         var dailyTotal = clientTotalDailySales.findOne({
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
@@ -46,11 +41,6 @@ Template.dashboard.helpers({
 });
 
 Template.dailyPerformance.helpers({
-    selectedDate: function () {
-        return Session.get("selectedDate") ?
-            moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
-            moment().format("MMMM DD, YYYY")
-    },
     hasPerformers: function(){
         return clientSalespersonTotalDailySales.find({
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()

@@ -85,3 +85,38 @@ Notify = {
         notification.sendToAdmin();
     }
 };
+
+// Template Helpers
+Template.registerHelper("selectedDate", function () {
+    return Session.get("selectedDate") ?
+        moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
+        moment().format("MMMM DD, YYYY");
+});
+
+Template.registerHelper("dailyTotalGoal", function () {
+    var dailyTotal = clientTotalDailySales.findOne({
+        transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+    });
+    return dailyTotal ? dailyTotal.goal : 0;
+});
+
+Template.registerHelper("dailyTotalGoalRevenue", function () {
+    var dailyTotal = clientTotalDailySales.findOne({
+        transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+    });
+    return dailyTotal ? accounting.formatMoney(dailyTotal.goalRevenue,"") : 0;
+});
+
+Template.registerHelper("dailyTotalSold", function () {
+    var dailyTotal = clientTotalDailySales.findOne({
+        transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+    });
+    return dailyTotal ? dailyTotal.sold : 0;
+});
+
+Template.registerHelper("dailyTotalSoldRevenue", function () {
+    var dailyTotal = clientTotalDailySales.findOne({
+        transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+    });
+    return dailyTotal ? accounting.formatMoney(dailyTotal.soldRevenue,"") : 0;
+});

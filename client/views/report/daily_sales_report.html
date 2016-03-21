@@ -1,7 +1,32 @@
-<template  name="dailySalesGraph">
+<template name="dailySalesReport">
+    <div class="clearfix">
+        <h3 class="pull-left">Daily Sales Reports for {{selectedDate}}</h3>
+        {{> setSalesDate }}
+    </div>
+    <div id="total-summary">
+        <p><strong>Total Goal:</strong> {{dailyTotalGoalRevenue}}</p>
+        <p><strong>Total Sold:</strong> {{dailyTotalSoldRevenue}}</p>
+    </div>
+
+    {{> dailyItemSalesGraph }}
+    {{> dailySalespersonPerformanceGraph }}
+</template>
+
+<template name="dailyItemSalesGraph">
     <div id="daily-sales-graph-container" class="panel panel-default">
         <div class="panel-heading">
             <h4>Daily Items Sales for {{selectedDate}}</h4>
+        </div>
+        <div class="panel-body">
+            <svg></svg>
+        </div>
+    </div>
+</template>
+
+<template name="dailySalespersonPerformanceGraph">
+    <div id="daily-performance-graph-container" class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Daily Salesperson Performance for {{selectedDate}}</h4>
         </div>
         <div class="panel-body">
             <svg></svg>

@@ -96,15 +96,15 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <input class="form-control goal disabled" disabled
-                                           value="{{totalGoal}}"/>
+                                           value="{{dailyTotalGoal}}"/>
                                     <input class="form-control goal disabled" disabled
-                                           value="{{totalGoalRevenue}}"/>
+                                           value="{{dailyTotalGoalRevenue}}"/>
                                 </div>
                                 <div class="col-sm-6">
                                     <input class="form-control sold disabled" disabled
-                                           value="{{totalSold}}"/>
+                                           value="{{dailyTotalSold}}"/>
                                     <input class="form-control sold disabled" disabled
-                                           value="{{totalSoldRevenue}}"/>
+                                           value="{{dailyTotalSoldRevenue}}"/>
                                 </div>
                             </div>
                         </td>
@@ -112,15 +112,10 @@
                     </tbody>
                 </table>
             </div>
-
-
             <div id="legend">
                 <p><i class="fa fa-square fa-lg goal"></i> Goal for the day</p>
                 <p><i class="fa fa-square fa-lg sold"></i> Sold on the day</p>
             </div>
-        </div>
-        <div class="panel-footer">
-
         </div>
     </div>
 </template>

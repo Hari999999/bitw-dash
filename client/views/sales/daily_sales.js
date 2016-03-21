@@ -7,11 +7,6 @@ Template.dailySales.onRendered(function () {
 });
 
 Template.dailySales.helpers({
-    selectedDate: function () {
-        return Session.get("selectedDate") ?
-            moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
-            moment().format("MMMM DD, YYYY");
-    },
     items: function () {
         return Items.find();
     },
@@ -121,30 +116,6 @@ Template.dailySales.helpers({
         var itemId = this._id;
         var dailyTotal = clientItemTotalDailySales.findOne({
             itemId: itemId,
-            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
-        });
-        return dailyTotal ? accounting.formatMoney(dailyTotal.soldRevenue,"") : 0;
-    },
-    totalGoal: function () {
-        var dailyTotal = clientTotalDailySales.findOne({
-            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
-        });
-        return dailyTotal ? dailyTotal.goal : 0;
-    },
-    totalGoalRevenue: function () {
-        var dailyTotal = clientTotalDailySales.findOne({
-            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
-        });
-        return dailyTotal ? accounting.formatMoney(dailyTotal.goalRevenue,"") : 0;
-    },
-    totalSold: function () {
-        var dailyTotal = clientTotalDailySales.findOne({
-            transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
-        });
-        return dailyTotal ? dailyTotal.sold : 0;
-    },
-    totalSoldRevenue: function () {
-        var dailyTotal = clientTotalDailySales.findOne({
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
         });
         return dailyTotal ? accounting.formatMoney(dailyTotal.soldRevenue,"") : 0;
