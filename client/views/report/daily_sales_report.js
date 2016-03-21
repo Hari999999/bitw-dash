@@ -38,6 +38,10 @@ initializeGraph = function () {
 
     var data = clientItemTotalDailySales.find({
         transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()
+    }, {
+        sort: {
+            soldRevenue: 1
+        }
     }).fetch();
 
     var columns = ["Goal", "Sold"];
@@ -65,7 +69,7 @@ initializeGraph = function () {
     var chart;
     nv.addGraph(function () {
         chart = nv.models.multiBarChart()
-            .color(["#4caf50", "#e5af19"]) //d3.scale.category20().range())
+            .color(["#4caf50", "#e5af19"])
             .duration(300)
             .margin({bottom: 100, left: 70})
             .rotateLabels(45)
@@ -73,13 +77,10 @@ initializeGraph = function () {
         ;
         chart.reduceXTicks(false).staggerLabels(true);
         chart.xAxis
-            //.axisLabel("Sales Items")
             .axisLabelDistance(35)
             .showMaxMin(false)
-            //.tickFormat(d3.format(',.6f'))
         ;
         chart.yAxis
-            //.axisLabel("Sales Amount")
             .axisLabelDistance(-5)
             .tickFormat(d3.format(',.01f'))
         ;

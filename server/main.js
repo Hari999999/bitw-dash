@@ -28,9 +28,9 @@ Meteor.startup(function(){
     }
 
     // Create the Driver Role if it does not exist
-    if(Roles.find({name: "Driver"}).count() == 0){
+    if(Roles.find({name: "Sales"}).count() == 0){
         var surveyorRole = {
-            name: "Driver",
+            name: "Sales",
             permissions: []
         };
         Roles.insert(surveyorRole);
@@ -39,7 +39,7 @@ Meteor.startup(function(){
     //Create the Super Administrators user if it does not exist
     if(Meteor.users.find({username: "Admin"}).count() == 0){
         // Get the Admin Role
-        var adminRole = Roles.findOne({name: "Administrator"});
+        adminRole = Roles.findOne({name: "Administrator"});
         // Create the Administrator User
         Accounts.createUser({
             username: "Admin",
