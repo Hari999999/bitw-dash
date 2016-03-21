@@ -24,49 +24,11 @@
                             </td>
                             {{#each items}}
                                 <td class="daily-entry">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <input class="form-control goal" type="number" min="0"
-                                                   data-salesperson-id="{{salesPersonId}}"
-                                                   data-salesperson-name="{{salesPersonData}}"
-                                                   data-item-id="{{_id}}"
-                                                   data-item-price="{{price}}"
-                                                   data-item-name="{{name}}"
-                                                   data-entry-type="goal"
-                                                   value="{{goalForItem}}"/>
-                                            <input class="form-control goal disabled"
-                                                   value="{{goalRevenueForItem}}" disabled/>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input class="form-control sold" type="number" min="0"
-                                                   data-salesperson-id="{{salesPersonId}}"
-                                                   data-salesperson-name="{{salesPersonData}}"
-                                                   data-item-id="{{_id}}"
-                                                   data-item-price="{{price}}"
-                                                   data-item-name="{{name}}"
-                                                   data-entry-type="sold"
-                                                   value="{{soldItem}}"/>
-                                            <input class="form-control sold disabled"
-                                                   value="{{soldItemRevenue}}" disabled/>
-                                        </div>
-                                    </div>
+                                    {{> activeCells }}
                                 </td>
                             {{/each}}
                             <td>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <input class="form-control goal disabled" disabled
-                                               value="{{salespersonTotalGoal}}"/>
-                                        <input class="form-control goal disabled" disabled
-                                               value="{{salespersonTotalGoalRevenue}}"/>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input class="form-control sold disabled" disabled
-                                               value="{{salespersonTotalSold}}"/>
-                                        <input class="form-control sold disabled" disabled
-                                               value="{{salespersonTotalSoldRevenue}}"/>
-                                    </div>
-                                </div>
+                                {{> salespersonTotals }}
                             </td>
                         </tr>
                     {{/each}}
@@ -76,37 +38,11 @@
                         </td>
                         {{#each items}}
                             <td>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <input class="form-control goal disabled" disabled
-                                               value="{{itemTotalGoal}}"/>
-                                        <input class="form-control goal disabled" disabled
-                                               value="{{itemTotalGoalRevenue}}"/>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input class="form-control sold disabled" disabled
-                                               value="{{itemTotalSold}}"/>
-                                        <input class="form-control sold disabled" disabled
-                                               value="{{itemTotalSoldRevenue}}"/>
-                                    </div>
-                                </div>
+                                {{> itemTotals }}
                             </td>
                         {{/each}}
                         <td>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <input class="form-control goal disabled" disabled
-                                           value="{{dailyTotalGoal}}"/>
-                                    <input class="form-control goal disabled" disabled
-                                           value="{{dailyTotalGoalRevenue}}"/>
-                                </div>
-                                <div class="col-sm-6">
-                                    <input class="form-control sold disabled" disabled
-                                           value="{{dailyTotalSold}}"/>
-                                    <input class="form-control sold disabled" disabled
-                                           value="{{dailyTotalSoldRevenue}}"/>
-                                </div>
-                            </div>
+                            {{> dailyTotals }}
                         </td>
                     </tr>
                     </tbody>
@@ -133,4 +69,84 @@
             </div>
         </div>
     </form>
+</template>
+
+<template name="activeCells">
+    <div class="row">
+        <div class="col-sm-6">
+            <input class="form-control goal" type="number" min="0"
+                   data-salesperson-id="{{salesPersonId}}"
+                   data-salesperson-name="{{salesPersonData}}"
+                   data-item-id="{{_id}}"
+                   data-item-price="{{price}}"
+                   data-item-name="{{name}}"
+                   data-entry-type="goal"
+                   value="{{goalForItem}}"/>
+            <input class="form-control goal disabled"
+                   value="{{goalRevenueForItem}}" disabled/>
+        </div>
+        <div class="col-sm-6">
+            <input class="form-control sold" type="number" min="0"
+                   data-salesperson-id="{{salesPersonId}}"
+                   data-salesperson-name="{{salesPersonData}}"
+                   data-item-id="{{_id}}"
+                   data-item-price="{{price}}"
+                   data-item-name="{{name}}"
+                   data-entry-type="sold"
+                   value="{{soldItem}}"/>
+            <input class="form-control sold disabled"
+                   value="{{soldItemRevenue}}" disabled/>
+        </div>
+    </div>
+</template>
+
+<template name="salespersonTotals">
+    <div class="row">
+        <div class="col-sm-6">
+            <input class="form-control goal disabled" disabled
+                   value="{{salespersonTotalGoal}}"/>
+            <input class="form-control goal disabled" disabled
+                   value="{{salespersonTotalGoalRevenue}}"/>
+        </div>
+        <div class="col-sm-6">
+            <input class="form-control sold disabled" disabled
+                   value="{{salespersonTotalSold}}"/>
+            <input class="form-control sold disabled" disabled
+                   value="{{salespersonTotalSoldRevenue}}"/>
+        </div>
+    </div>
+</template>
+
+<template name="itemTotals">
+    <div class="row">
+        <div class="col-sm-6">
+            <input class="form-control goal disabled" disabled
+                   value="{{itemTotalGoal}}"/>
+            <input class="form-control goal disabled" disabled
+                   value="{{itemTotalGoalRevenue}}"/>
+        </div>
+        <div class="col-sm-6">
+            <input class="form-control sold disabled" disabled
+                   value="{{itemTotalSold}}"/>
+            <input class="form-control sold disabled" disabled
+                   value="{{itemTotalSoldRevenue}}"/>
+        </div>
+    </div>
+</template>
+
+<template name="dailyTotals">
+    <div class="row">
+        <div class="col-sm-6">
+            <input class="form-control goal disabled" disabled
+                   value="{{dailyTotalGoal}}"/>
+            <input class="form-control goal disabled" disabled
+                   value="{{dailyTotalGoalRevenue}}"/>
+        </div>
+        <div class="col-sm-6">
+            <input class="form-control sold disabled" disabled
+                   value="{{dailyTotalSold}}"/>
+            <input class="form-control sold disabled" disabled
+                   value="{{dailyTotalSoldRevenue}}"/>
+        </div>
+    </div>
 </template>
