@@ -17,6 +17,7 @@ ccorcos:subs-cache@0.1.0
 check@1.1.0
 chrismbeckett:toastr@2.1.2_1
 coffeescript@1.0.11
+d3js:d3@3.5.8
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.2
@@ -74,6 +75,7 @@ mongo-id@1.0.1
 mongo-livedata@1.0.9
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
+nvd3:nvd3@1.8.2
 observe-sequence@1.0.7
 ordered-dict@1.0.4
 promise@0.5.1

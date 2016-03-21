@@ -10,7 +10,7 @@ Template.dailySales.helpers({
     selectedDate: function () {
         return Session.get("selectedDate") ?
             moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
-            moment().format("MMMM DD, YYYY")
+            moment().format("MMMM DD, YYYY");
     },
     items: function () {
         return Items.find();
@@ -23,6 +23,9 @@ Template.dailySales.helpers({
     },
     salesPersonId: function () {
         return Template.parentData(1)._id;
+    },
+    salesPersonData: function () {
+        return Template.parentData(1).fullName();
     },
     goalForItem: function () {
         var dailySales = Sales.findOne({
@@ -151,16 +154,20 @@ Template.dailySales.helpers({
 Template.dailySales.events({
     "blur td.daily-entry input.sold": function (e, t) {
         var salespersonId = t.$(e.target).data("salesperson-id");
+        var salespersonName = t.$(e.target).data("salesperson-name");
         var itemId = t.$(e.target).data("item-id");
         var itemPrice = parseFloat(t.$(e.target).data("item-price"));
+        var itemName = t.$(e.target).data("item-name");
         var goalSelector = 'input[data-salesperson-id="' + salespersonId + '"][data-item-id="' + itemId + '"][data-entry-type="goal"]';
         var goal = parseInt(t.$(goalSelector).val(), 10);
         var sold = parseInt(t.$(e.target).val(), 10);
 
         var salesDoc = {
             salespersonId: salespersonId,
+            salespersonName: salespersonName,
             itemId: itemId,
             itemPrice: itemPrice,
+            itemName: itemName,
             goal: goal,
             sold: sold,
             transactionDate: moment(Session.get("selectedDate"), "DD-MM-YYYY").toDate()

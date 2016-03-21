@@ -20,6 +20,9 @@ Meteor.publish("salespersonTotalDailySales", function () {
                     customId: {
                         $first: "$_id"
                     },
+                    salespersonName: {
+                        $first: "$salespersonName"
+                    },
                     goal: {$sum: "$goal"},
                     goalRevenue: {
                         $sum: {
@@ -38,6 +41,7 @@ Meteor.publish("salespersonTotalDailySales", function () {
                 $project: {
                     _id: "$customId",
                     salespersonId: "$_id.salespersonId",
+                    salespersonName: "$salespersonName",
                     transactionDate: "$_id.transactionDate",
                     goal: "$goal",
                     goalRevenue: "$goalRevenue",
@@ -58,6 +62,9 @@ Meteor.publish("itemTotalDailySales", function () {
                     customId: {
                         $first: "$_id"
                     },
+                    itemName: {
+                        $first: "$itemName"
+                    },
                     goal: {$sum: "$goal"},
                     goalRevenue: {
                         $sum: {
@@ -76,6 +83,7 @@ Meteor.publish("itemTotalDailySales", function () {
                 $project: {
                     _id: "$customId",
                     itemId: "$_id.itemId",
+                    itemName: "$itemName",
                     transactionDate: "$_id.transactionDate",
                     goal: "$goal",
                     goalRevenue: "$goalRevenue",

@@ -27,16 +27,24 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <input class="form-control goal" type="number" min="0"
-                                                   data-salesperson-id="{{salesPersonId}}" data-item-id="{{_id}}"
-                                                   data-item-price="{{price}}" data-entry-type="goal"
+                                                   data-salesperson-id="{{salesPersonId}}"
+                                                   data-salesperson-name="{{salesPersonData}}"
+                                                   data-item-id="{{_id}}"
+                                                   data-item-price="{{price}}"
+                                                   data-item-name="{{name}}"
+                                                   data-entry-type="goal"
                                                    value="{{goalForItem}}"/>
                                             <input class="form-control goal disabled"
                                                    value="{{goalRevenueForItem}}" disabled/>
                                         </div>
                                         <div class="col-sm-6">
                                             <input class="form-control sold" type="number" min="0"
-                                                   data-salesperson-id="{{salesPersonId}}" data-item-id="{{_id}}"
-                                                   data-item-price="{{price}}" data-entry-type="sold"
+                                                   data-salesperson-id="{{salesPersonId}}"
+                                                   data-salesperson-name="{{salesPersonData}}"
+                                                   data-item-id="{{_id}}"
+                                                   data-item-price="{{price}}"
+                                                   data-item-name="{{name}}"
+                                                   data-entry-type="sold"
                                                    value="{{soldItem}}"/>
                                             <input class="form-control sold disabled"
                                                    value="{{soldItemRevenue}}" disabled/>

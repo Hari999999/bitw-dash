@@ -33,3 +33,5 @@ jagi:astronomy
 jagi:astronomy-validators
 jcbernack:reactive-aggregate
 lepozepo:accounting
+d3js:d3
+nvd3:nvd3
