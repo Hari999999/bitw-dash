@@ -5,7 +5,7 @@ todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
 Template.dashboard.onRendered(function(){
-   Session.set("selectedDate", ""); //moment().format("DD-MM-YYYY"));
+   Session.set("selectedDate", moment().format("DD-MM-YYYY"));
 });
 
 Template.dashboard.helpers({
